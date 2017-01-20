@@ -21,4 +21,8 @@ class systemd($removeipc='no') inherits systemd::params {
     content => template("${module_name}/logind.erb"),
   }
 
+  $hash_services = hiera_hash('systemd::service',undef)
+  if $hash_services {
+    create_resources(systemd::service,$hash_services)
+  }
 }
