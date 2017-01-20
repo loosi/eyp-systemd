@@ -11,9 +11,10 @@
     * [Setup requirements](#setup-requirements)
     * [Beginning with systemd](#beginning-with-systemd)
 4. [Usage](#usage)
-5. [Reference](#reference)
-5. [Limitations](#limitations)
-6. [Development](#development)
+4. [Hiera](#hiera)
+6. [Reference](#reference)
+7. [Limitations](#limitations)
+8. [Development](#development)
     * [Contributing](#contributing)
 
 ## Overview
@@ -157,7 +158,24 @@ root     27399  0.0  0.0 113120  1396 ?        S    Jan09   0:00 /bin/bash /etc/
 root      7173  0.0  0.0 107896   608 ?        S    10:34   0:00  \_ sleep 10m
 ```
 
+### Hiera
+You may deploy the services via hiera definitions. For that you need to include the main class and define something like the following :
+You can use all [Variables](#systemdservice) for a service.
+```yaml
+systemd::service:
+  foooobar:
+    user             : fooo
+    group            : bar
+    execstart        : /bin/true
+    description      : This is a Foooooooobar Service
+    execreload       : '/bin/echo'
+    enable_service   : true
+    requires         :
+      - sshd.service
+      - dbus.service
 
+
+```
 
 ## Reference
 
@@ -191,6 +209,11 @@ root      7173  0.0  0.0 107896   608 ?        S    10:34   0:00  \_ sleep 10m
 * **requires**: Configures requirement dependencies on other units. If this unit gets activated, the units listed here will be activated as well. If one of the other units gets deactivated or its activation fails, this unit will be deactivated (default: [])
 * **conflicts**: A space-separated list of unit names. Configures negative requirement dependencies. If a unit has a Conflicts= setting on another unit, starting the former will stop the latter and vice versa (default: [])
 * **wantedby**: Array, this has the effect that a dependency of type **Wants=** is added from the listed unit to the current unit (default: ['multi-user.target'])
+* **requiredby**: Array, this has the effect that a dependency of type **Requires=** is added from the listed unit to the current unit (default: [])
+* **working_directory**: Sets the parameter "WorkingDirectory" for systemd unit. Sets the working dir for the command you want to execute (default: undef)
+* **execstart_pre**: Sets the parameter "ExecStartPre" for systemd unit. Runs a script before the **ExecStart** is executed. (default: undef)
+* **enable_service**: Enables the service via puppet (means autostart). (default: false)
+* **ensure_service**: Ensures service is running or not via puppet). (default: true)
 * **requiredby**: Array, this has the effect that a dependency of type **Requires=** is added from the listed unit to the current unit (default: [])
 
 #### systemd::sysvwrapper
