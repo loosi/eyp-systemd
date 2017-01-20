@@ -52,7 +52,12 @@ Type=<%= @type %>
 Environment=<%= env %>
 <%   end -%>
 <% end -%>
-
+<% if defined?(@working_directory) -%>
+WorkingDirectory=<%= @working_directory %>
+<% end -%>
+<% if defined?(@execstart_pre) -%>
+ExecStartPre=<%= @execstart_pre %>
+<% end -%>
 [Install]
 WantedBy=<%= @wantedby.join(' ') %>
 <% if @requiredby.any? -%>

@@ -20,6 +20,8 @@ define systemd::service (
                           $before_units      = [],
                           $requires          = [],
                           $conflicts         = [],
+                          $working_directory = undef,
+                          $execstart_pre     = undef,
                         ) {
   Exec {
     path => '/bin:/sbin:/usr/bin:/usr/sbin',
