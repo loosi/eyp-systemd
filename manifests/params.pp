@@ -12,6 +12,16 @@ class systemd::params {
         default: { fail('Unsupported RHEL/CentOS version!')  }
       }
     }
+    'Suse' :
+    {
+      case $::operatingsystemrelease
+      {
+        /^13.2|42.*$/:
+        {
+        }
+        default: { fail('Unsupported Suse/OpenSuse version!')  }
+      }
+    }
     'Debian':
     {
       case $::operatingsystem
