@@ -22,7 +22,7 @@ define systemd::service (
                           $conflicts         = [],
                           $working_directory = undef,
                           $execstart_pre     = undef,
-                          $enable            = false,
+                          $enable_service    = false,
                           $ensure_service    = 'running'
                         ) {
   Exec {
@@ -62,6 +62,6 @@ define systemd::service (
   ->
   service { "${servicename}.service":
     ensure  => $ensure_service,
-    enable  => $enable,
+    enable  => $enable_service,
   }
 }
