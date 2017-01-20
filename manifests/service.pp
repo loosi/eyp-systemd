@@ -22,6 +22,8 @@ define systemd::service (
                           $conflicts         = [],
                           $working_directory = undef,
                           $execstart_pre     = undef,
+                          $enable            = false,
+                          $ensure_service    = 'running'
                         ) {
   Exec {
     path => '/bin:/sbin:/usr/bin:/usr/sbin',
@@ -57,5 +59,9 @@ define systemd::service (
     content => template("${module_name}/service.erb"),
     notify  => Exec['systemctl reload'],
   }
-
+  ->
+  service { "${servicename}.service":
+    ensure  => $ensure_service,
+    enable  => $enable,
+  }
 }
