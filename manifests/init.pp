@@ -12,13 +12,12 @@ class systemd($removeipc='no') inherits systemd::params {
     refreshonly => true,
   }
 
-  # /etc/systemd/logind.conf
-  file { '/etc/systemd/logind.conf':
-    ensure  => 'present',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template("${module_name}/logind.erb"),
+  augeas{ 'set_logind_conf' :
+    lens    => "Puppet.lns",
+    incl    => "/etc/systemd/logind.conf",
+    changes => [
+        "set Login/RemoveIPC ${removeipc}",
+    ],
   }
 
   $hash_services = hiera_hash('systemd::service',undef)
