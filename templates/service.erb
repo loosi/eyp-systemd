@@ -3,7 +3,7 @@
 Description = <%= @description %>
 <% end -%>
 <% if defined?(@after) -%>
-After=<%= @after %>
+After=<%= @after.join(' ') %>
 <% end -%>
 <% if @wants.any? -%>
 Wants=<%= @wants.join(' ') %>
