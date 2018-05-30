@@ -40,7 +40,7 @@ class systemd::params {
         {
           case $::operatingsystemrelease
           {
-            /^8.*$/:
+            /^[89].*$/:
             {
             }
             default: { fail("Unsupported Debian version! - ${::operatingsystemrelease}")  }
@@ -48,6 +48,19 @@ class systemd::params {
         }
         default: { fail('Unsupported Debian flavour!')  }
       }
+    }
+    'Suse' :
+    {
+      case $::operatingsystemrelease
+      {
+        /^12.*$/:
+        {
+        }
+        default: { fail('Unsupported Suse/OpenSuse version!')  }
+      }
+    }
+    'Archlinux' :
+    {
     }
     default  : { fail('Unsupported OS!') }
   }

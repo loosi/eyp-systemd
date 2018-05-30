@@ -14,5 +14,6 @@ group :system_tests do
   gem 'serverspec',          :require => false
   gem 'rspec', '< 3.2',      :require => false if RUBY_VERSION =~ /^1\.8/
   gem 'rspec-puppet',        :require => false
+  gem 'rspec-puppet-facts',        :require => false
   gem 'metadata-json-lint',  :require => false
 end
